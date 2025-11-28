@@ -71,4 +71,4 @@ To add, remove, or modify feature flags after the initial setup, simply:
 
 ## Note to self
 
-This project is built to make it easier to work with feature flags in the [customers-gitlab-com](https://gitlab.com/gitlab-org/customers-gitlab-com) project. Hence, the `feature.json` structure is inspired from [CustomersDot feature flags API](https://gitlab.com/gitlab-org/customers-gitlab-com/-/feature_flags.json?limit=1000). You may copy and paste this content directly into the features.json file to quick start.
+This project is built to make it easier to work with feature flags in the [customers-gitlab-com](https://gitlab.com/gitlab-org/customers-gitlab-com) project. Hence, the `feature.json` structure is inspired from [CustomersDot feature flags API](https://gitlab.com/gitlab-org/customers-gitlab-com/-/feature_flags.json?per_page=1000). You may copy and paste this content directly into the features.json file to quick start.
