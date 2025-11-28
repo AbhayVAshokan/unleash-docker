@@ -1,0 +1,9 @@
+{
+  "feature_flags": [
+    {
+      "active": true,
+      "name": "maintenance_mode",
+      "description": "Controls whether the maintenance mode is toggled on",
+    }
+  ],
+}
