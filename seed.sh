@@ -12,8 +12,8 @@ cat /features.json | jq -c '.feature_flags[]' | while read -r feature; do
     enabled=$(echo "$feature" | jq -r '.active // false')
 
     psql -h db -U $POSTGRES_USER -d $POSTGRES_DB -q <<-EOSQL
-        INSERT INTO features (name, description)
-        VALUES ('$name', '$description')
+        INSERT INTO features (name, description, created_by_user_id)
+        VALUES ('$name', '$description', 1)
         ON CONFLICT (name) DO NOTHING;
 EOSQL
     
