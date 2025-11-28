@@ -1,0 +1,49 @@
+services:
+  web:
+    image: unleashorg/unleash-server:latest
+    ports:
+      - "4267:4242"
+    environment:
+      DATABASE_URL: "postgres://postgres:unleash@db/db"
+      DATABASE_SSL: "false"
+      LOG_LEVEL: "warn"
+      INIT_FRONTEND_API_TOKENS: "default:development.unleash-insecure-frontend-api-token"
+      INIT_BACKEND_API_TOKENS: "default:development.unleash-insecure-api-token"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    expose:
+      - "5432"
+    image: postgres:15
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    healthcheck:
+      test: pg_isready -q -d db -U postgres
+      interval: 2s
+      timeout: 1m
+      retries: 5
+      start_period: 10s
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  seed:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_USER: "postgres"
+    depends_on:
+      db:
+        condition: service_healthy
+      web:
+        condition: service_started
+    volumes:
+      - ./features.json:/features.json:ro
+      - ./seed.sh:/seed.sh:ro
+    entrypoint: ["/bin/bash", "/seed.sh"]
+
+volumes:
+  db-data:
