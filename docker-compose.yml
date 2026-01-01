@@ -3,6 +3,7 @@ services:
     image: unleashorg/unleash-server:latest
     ports:
       - "4267:4242"
+    restart: unless-stopped
     environment:
       DATABASE_URL: "postgres://postgres:unleash@db/db"
       DATABASE_SSL: "false"
@@ -27,6 +28,7 @@ services:
       timeout: 1m
       retries: 5
       start_period: 10s
+    restart: unless-stopped
     volumes:
       - db-data:/var/lib/postgresql/data
 
